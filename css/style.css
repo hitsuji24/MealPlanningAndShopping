@@ -1,0 +1,154 @@
+.highlight {
+    text-decoration: underline;
+    text-decoration-thickness: 0.5em;
+    text-decoration-color: rgba(197, 178, 8, 0.4);
+    text-underline-offset: -0.2em;
+    text-decoration-skip-ink: none;
+}
+
+header {
+    width: 95%;
+    margin: auto;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: rgb(11, 114, 109);
+    color: #fff;
+}
+
+#nutrientsInput {
+    width: 95%;
+    margin: auto;
+    /* TODO スクロールの表示部分を加味して余白を作って欲しい */
+}
+
+.nutInputWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.nutInput {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    padding: 8px;
+}
+
+.nutInput p {
+    margin: 2px 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: green;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(11, 114, 109);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* 結果の表全体。*/
+/* ? なぜ日曜日分の横に余白ができるのか そして横幅がうまく縮小しない */
+/* →なぜか朝昼晩のラベル分の箱が右側にできてた。こういう作りのときはGridが向いているらしい */
+/* 若干考えるのが難しかったので、ラベルもレシピの一つの列として対応 */
+
+/* 結果部分全体に対してのやつ */
+#mealPlanContainer {
+    /* Flexboxは朝昼晩ラベル含めた縦長の箱に対して指示 */
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+}
+
+/* 朝昼晩のラベル */
+.mealTimeLabels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 16px;
+    font-size: 18px;
+    font-weight: 800;
+    color: green;
+}
+
+
+/* 曜日と各レシピ。 */
+#mealPlanWrapper {
+    /* ラベルとして曜日を上に乗せるために、レシピ群と縦に並ばせる */
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+}
+
+/* 曜日のラベル */
+.dayLabel {
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+    font-weight: 800;
+    color: green;
+    margin: 8px 0;
+}
+
+/* 曜日ごとの献立が入っているやつ。*/
+.dayPlan {
+    /* 朝昼晩のレシピを縦に並べる */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 1日分のレシピが入っているやつ */
+/* TODO カードぽい見た目にする */
+.mealCard {
+    background-color: aquamarine;
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
+.mealCard h3 {
+    margin: 0px 8px 8px;
+    font-size: 14px;
+    font-weight: 800;
+    /* タイトルが長すぎる場合の処理 */
+    /* 改行の禁止 */
+    white-space: nowrap;
+    /* はみ出した部分を隠す */
+    overflow: hidden;
+    /* はみ出し部分を省略 */
+    text-overflow: ellipsis;
+}
+
+.mealCard p {
+    margin: 4px 8px;
+    font-size: 12px;
+    font-weight: 800;
+    /* タイトルが長すぎる場合の処理 */
+    /* 改行の禁止 */
+    white-space: nowrap;
+    /* はみ出した部分を隠す */
+    overflow: hidden;
+    /* はみ出し部分を省略 */
+    text-overflow: ellipsis;
+
+}
+
+.mealCard img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+}

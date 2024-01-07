@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>1週間分の献立プランニング</h1>
+    </header>
+
+    <div id="nutrientsInput">
+        <p><span class="highlight">1日あたり</span>の目標摂取量を教えてください</p>
+        <form id="nutrientsForm">
+            <div class="nutInputWrap">
+                <div class="nutInput" id="protein">
+                    <p>プロテイン</p>
+                    <label for="minProtein">最低値(g)</label>
+                    <input type="number" id="minProtein"><br>
+                    <label for="maxProtein	">最大値(g)</label>
+                    <input type="number" id="maxProtein">
+                </div>
+                <div class="nutInput" id="fat">
+                    <p>脂質</p>
+                    <label for="mminFat">最低値(g)</label>
+                    <input type="number" id="minFat"><br>
+                    <label for="maxFat">最大値(g)</label>
+                    <input type="number" id="maxFat">
+                </div>
+                <div class="nutInput" id="carbs">
+                    <p>炭水化物</p>
+                    <label for="minCarbs">最低値(g)</label>
+                    <input type="number" id="minCarbs"><br>
+                    <label for="maxCarbs">最大値(g)</label>
+                    <input type="number" id="maxCarbs">
+                </div>
+                <div class="nutInput" id="calories">
+                    <p>カロリー</p>
+                    <label for="minCalories">最低値(g)</label>
+                    <input type="number" id="minCalories"><br>
+                    <label for="maxCalories	">最大値(g)</label>
+                    <input type="number" id="maxCalories">
+                </div>
+            </div>
+            <button type="submit">レシピを検索</button>
+        </form>
+    </div>
+
+    <!-- 備忘録：朝昼晩ラベルと曜日&献立レシピの箱を作ってFlex指定は作り方として向いていない -->
+    <!-- 備忘録：横幅パーセンテージ指定のとき、marginはいい感じに計算してくれない。100%指定のときにはみ出す可能性あり -->
+
+    <div id="mealPlanWrapper">
+        <!-- ここに朝昼晩のラベル 一緒に横並びさせたほうが良さそう -->
+        <!-- Display Gridというのがある マスぽくさせるにはFlexboxより使いやすい
+                     横幅に対して相対指定できる
+                     朝昼晩のとこだけピクセル指定して、献立部分は相対指定が良さそう -->
+        <div class="mealTimeLabels">
+            <div>朝</div>
+            <div>昼</div>
+            <div>晩</div>
+        </div>
+        <div class="dayPlan" id="mondayPlan">
+            <div class="dayLabel">月</div>
+            <div class="mealCard" id="mondayBreakfast"></div>
+            <div class="mealCard" id="mondayLunch"></div>
+            <div class="mealCard" id="mondayDinner"></div>
+        </div>
+        <div class="dayPlan" id="tuesdayPlan">
+            <div class="dayLabel">火</div>
+            <div class="mealCard" id="tuesdayBreakfast"></div>
+            <div class="mealCard" id="tuesdayLunch"></div>
+            <div class="mealCard" id="tuesdayDinner"></div>
+        </div>
+        <div class="dayPlan" id="wednesdayPlan">
+            <div class="dayLabel">水</div>
+            <div class="mealCard" id="wednesdayBreakfast"></div>
+            <div class="mealCard" id="wednesdayLunch"></div>
+            <div class="mealCard" id="wednesdayDinner"></div>
+        </div>
+        <div class="dayPlan" id="thursdayPlan">
+            <div class="dayLabel">木</div>
+            <div class="mealCard" id="thursdayBreakfast"></div>
+            <div class="mealCard" id="thursdayLunch"></div>
+            <div class="mealCard" id="thursdayDinner"></div>
+        </div>
+        <div class="dayPlan" id="fridayPlan">
+            <div class="dayLabel">金</div>
+            <div class="mealCard" id="fridayBreakfast"></div>
+            <div class="mealCard" id="fridayLunch"></div>
+            <div class="mealCard" id="fridayDinner"></div>
+        </div>
+        <div class="dayPlan" id="saturdayPlan">
+            <div class="dayLabel">土</div>
+            <div class="mealCard" id="saturdayBreakfast"></div>
+            <div class="mealCard" id="saturdayLunch"></div>
+            <div class="mealCard" id="saturdayDinner"></div>
+        </div>
+        <div class="dayPlan" id="sundayPlan">
+            <div class="dayLabel">日</div>
+            <div class="mealCard" id="sundayBreakfast"></div>
+            <div class="mealCard" id="sundayLunch"></div>
+            <div class="mealCard" id="sundayDinner"></div>
+        </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
