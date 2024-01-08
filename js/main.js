@@ -60,16 +60,16 @@ document.getElementById('bodyInfoInput').addEventListener('submit', function (ev
         <p>あなたの1日あたりの目標摂取量は</p>
         <div class="pfcResultWrap">
             <div class="pfcResultItem">
-                <p>タンパク質</p>
-                <p>${proteinGrams.toFixed(1)} g</p>
+                <span>タンパク質</span>
+                <span>${proteinGrams.toFixed(1)} g</span>
             </div>
             <div class="pfcResultItem">
-                <p>脂質</p>
-                <p>${fatGrams.toFixed(1)} g</p>
+                <span>脂質</span>
+                <span>${fatGrams.toFixed(1)} g</span>
             </div>
             <div class="pfcResultItem">
-                <p>炭水化物</p>
-                <p>${carbGrams.toFixed(1)} g</p>
+                <span>炭水化物</sp>
+                <span>${carbGrams.toFixed(1)} g</span>
             </div>
         </div>
     `;
