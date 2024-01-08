@@ -1,3 +1,80 @@
+document.getElementById('bodyInfoInput').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // 入力値を取得
+    const sex = document.getElementById('sex').value;
+    const age = parseInt(document.getElementById('age').value);
+    const height = parseInt(document.getElementById('height').value);
+    const weight = parseInt(document.getElementById('weight').value);
+    const activityLevel = document.getElementById('activity').value;
+    const goal = document.getElementById('goal').value;
+
+    // BMRの計算
+    let bmr;
+    if (sex === "1") { // 女性の場合
+        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+    } else { // 男性の場合
+        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    }
+
+    // 活動レベルに基づいた総エネルギー必要量の計算
+    let totalCalories;
+    switch (activityLevel) {
+        case "1":
+            totalCalories = bmr * 1.2;
+            break;
+        case "2":
+            totalCalories = bmr * 1.5;
+            break;
+        case "3":
+            totalCalories = bmr * 1.75;
+            break;
+        default:
+            totalCalories = bmr;
+    }
+
+    // 目的に応じてPFCバランスを計算（例として固定割合を使用）
+    let proteinGrams, fatGrams, carbGrams;
+    switch (goal) {
+        case "1": // ダイエットの場合
+            proteinGrams = totalCalories * 0.40 / 4;
+            fatGrams = totalCalories * 0.30 / 9;
+            carbGrams = totalCalories * 0.30 / 4;
+            break;
+        case "2": // 維持の場合
+            proteinGrams = totalCalories * 0.30 / 4;
+            fatGrams = totalCalories * 0.35 / 9;
+            carbGrams = totalCalories * 0.35 / 4;
+            break;
+        case "3": // 増量の場合
+            proteinGrams = totalCalories * 0.25 / 4;
+            fatGrams = totalCalories * 0.20 / 9;
+            carbGrams = totalCalories * 0.55 / 4;
+            break;
+    }
+
+    // 結果を表示
+    const pfcResultDiv = document.querySelector('.pfcResult');
+    pfcResultDiv.innerHTML = `
+        <p>あなたの1日あたりの目標摂取量は</p>
+        <div class="pfcResultWrap">
+            <div class="pfcResultItem">
+                <p>タンパク質</p>
+                <p>${proteinGrams.toFixed(1)} g</p>
+            </div>
+            <div class="pfcResultItem">
+                <p>脂質</p>
+                <p>${fatGrams.toFixed(1)} g</p>
+            </div>
+            <div class="pfcResultItem">
+                <p>炭水化物</p>
+                <p>${carbGrams.toFixed(1)} g</p>
+            </div>
+        </div>
+    `;
+});
+
+
 document.getElementById('nutrientsForm').addEventListener('submit', function (event) {
     event.preventDefault(); // フォームのデフォルトの送信を防ぐ
 
@@ -9,8 +86,8 @@ document.getElementById('nutrientsForm').addEventListener('submit', function (ev
     const maxFat = document.getElementById('maxFat').value;
     const minCarbs = document.getElementById('minCarbs').value;
     const maxCarbs = document.getElementById('maxCarbs').value;
-    const minCalories = document.getElementById('minCalories').value;
-    const maxCalories = document.getElementById('maxCalories').value;
+    // const minCalories = document.getElementById('minCalories').value;
+    // const maxCalories = document.getElementById('maxCalories').value;
 
     //* 1日分の数値を朝昼晩用に分割
     //? リクエストが1ptで結果表示が0.1ptなので費用を安くするためにもっと適した設計ができそう→朝晩をLight,昼をHeavyにするとか。結果を使いまわしするとか。
@@ -31,13 +108,13 @@ document.getElementById('nutrientsForm').addEventListener('submit', function (ev
     const maxFatPortions = calculatePortions(maxFat);
     const minCarbsPortions = calculatePortions(minCarbs);
     const maxCarbsPortions = calculatePortions(maxCarbs);
-    const minCaloriesPortions = calculatePortions(minCalories);
-    const maxCaloriesPortions = calculatePortions(maxCalories);
+    // const minCaloriesPortions = calculatePortions(minCalories);
+    // const maxCaloriesPortions = calculatePortions(maxCalories);
 
     //* APIリクエストの作成
-    const apiUrlBreakfast = `https://api.spoonacular.com/recipes/findByNutrients?apiKey=XXX&minProtein=${minProteinPortions.breakfast}&maxProtein=${maxProteinPortions.breakfast}&minFat=${minFatPortions.breakfast}&maxFat=${maxFatPortions.breakfast}&minCarbs=${minCarbsPortions.breakfast}&maxCarbs=${maxCarbsPortions.breakfast}&minCalories=${minCaloriesPortions.breakfast}&maxCalories=${maxCaloriesPortions.breakfast}&number=7`;
-    const apiUrlLunch = `https://api.spoonacular.com/recipes/findByNutrients?apiKey=XXX&minProtein=${minProteinPortions.lunch}&maxProtein=${maxProteinPortions.lunch}&minFat=${minFatPortions.lunch}&maxFat=${maxFatPortions.lunch}&minCarbs=${minCarbsPortions.lunch}&maxCarbs=${maxCarbsPortions.lunch}&minCalories=${minCaloriesPortions.lunch}&maxCalories=${maxCaloriesPortions.lunch}&number=7`;
-    const apiUrlDinner = `https://api.spoonacular.com/recipes/findByNutrients?apiKey=XXX&minProtein=${minProteinPortions.dinner}&maxProtein=${maxProteinPortions.dinner}&minFat=${minFatPortions.dinner}&maxFat=${maxFatPortions.dinner}&minCarbs=${minCarbsPortions.dinner}&maxCarbs=${maxCarbsPortions.dinner}&minCalories=${minCaloriesPortions.dinner}&maxCalories=${maxCaloriesPortions.dinner}&number=7`;
+    const apiUrlBreakfast = `https://api.spoonacular.com/recipes/findByNutrients?apiKey=XXX&minProtein=${minProteinPortions.breakfast}&maxProtein=${maxProteinPortions.breakfast}&minFat=${minFatPortions.breakfast}&maxFat=${maxFatPortions.breakfast}&minCarbs=${minCarbsPortions.breakfast}&maxCarbs=${maxCarbsPortions.breakfast}&number=7`;
+    const apiUrlLunch = `https://api.spoonacular.com/recipes/findByNutrients?apiKey=XXX&minProtein=${minProteinPortions.lunch}&maxProtein=${maxProteinPortions.lunch}&minFat=${minFatPortions.lunch}&maxFat=${maxFatPortions.lunch}&minCarbs=${minCarbsPortions.lunch}&maxCarbs=${maxCarbsPortions.lunch}&number=7`;
+    const apiUrlDinner = `https://api.spoonacular.com/recipes/findByNutrients?apiKey=XXX&minProtein=${minProteinPortions.dinner}&maxProtein=${maxProteinPortions.dinner}&minFat=${minFatPortions.dinner}&maxFat=${maxFatPortions.dinner}&minCarbs=${minCarbsPortions.dinner}&maxCarbs=${maxCarbsPortions.dinner}&number=7`;
     // URLの確認
     console.log(apiUrlBreakfast);
     console.log(apiUrlLunch);
@@ -45,34 +122,52 @@ document.getElementById('nutrientsForm').addEventListener('submit', function (ev
 
 
     //*結果を1週間分の献立として表示 
-    // // APIレスポンスを処理し、レシピを表示する関数
-    // function fetchAndDisplayMeals(apiUrl, mealType) {
-    //     fetch(apiUrl)
-    //         .then(response => response.json())
-    //         .then(recipes => {
-    //             // データを日ごとに分配して表示
-    //             recipes.forEach((recipe, index) => {
-    //                 const day = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][index];
-    //                 const mealTime = ['Morning', 'Lunch', 'Dinner'][index % 3];
+    // APIレスポンスを処理し、レシピを表示する関数
+    function fetchAndDisplayMeals(apiUrl, mealType) {
+        // すべてのdayPlanの内容をクリア
+        const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        days.forEach(day => {
+            const dayPlanId = `${day}${mealType}`;
+            const dayPlanElement = document.getElementById(dayPlanId);
+            if (dayPlanElement) {
+                dayPlanElement.innerHTML = ''; // 既存のコンテンツをクリア
+            }
+        });
 
-    //                 const recipeElement = document.createElement('div');
-    //                 recipeElement.innerHTML = `
-    //                 <h3>${day.toUpperCase()}: ${recipe.title}</h3>
-    //                 <img src="${recipe.image}" alt="${recipe.title}">
-    //                 <p>Calories: ${recipe.calories}</p>
-    //                 <p>Carbs: ${recipe.carbs}</p>
-    //                 <p>Fat: ${recipe.fat}</p>
-    //                 <p>Protein: ${recipe.protein}</p>
-    //             `;
-    //                 document.getElementById(`${day}${mealTime}`).appendChild(recipeElement);
-    //             });
-    //         })
-    //         .catch(error => console.error('Error:', error));
-    // }
-    // // 朝食、昼食、夕食用のAPIリクエストを実行
-    // fetchAndDisplayMeals(apiUrlBreakfast, 'breakfast');
-    // fetchAndDisplayMeals(apiUrlLunch, 'lunch');
-    // fetchAndDisplayMeals(apiUrlDinner, 'dinner');
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(recipes => {
+                // データを日ごとに分配して表示
+                recipes.forEach((recipe, index) => {
+                    const day = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][index];
+                    const mealTime = mealType;
+
+                    const recipeElement = document.createElement('div');
+                    recipeElement.innerHTML = `
+                    <h3> ${recipe.title}</h3>
+                    <img src="${recipe.image}" alt="${recipe.title}">
+                    <p>Protein: ${recipe.protein}</p>
+                    <p>Fat: ${recipe.fat}</p>
+                    <p>Carbs: ${recipe.carbs}</p>
+                    <p>Calories: ${recipe.calories}</p>
+
+                `;
+
+                    //    クリックして各レシピの詳細ページを表示
+                    recipeElement.addEventListener('click', () => {
+                        // 別ウィンドウで表示する場合
+                        window.open(`https://spoonacular.com/recipes/${recipe.title}-${recipe.id}`, '_blank');
+                    });
+
+            document.getElementById(`${day}${mealTime}`).appendChild(recipeElement);
+});
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    // 朝食、昼食、夕食用のAPIリクエストを実行
+    fetchAndDisplayMeals(apiUrlBreakfast, 'Breakfast');
+    fetchAndDisplayMeals(apiUrlLunch, 'Lunch');
+    fetchAndDisplayMeals(apiUrlDinner, 'Dinner');
 
     //* ダミーを使って検証するとき用 
     // 検証用のダミーデータ
@@ -293,43 +388,43 @@ document.getElementById('nutrientsForm').addEventListener('submit', function (ev
         }
     ]
     // ダミーデータを使って表示
-    function displayDummyMeals(dummyRecipes, mealType) {
-        // すべてのdayPlanの内容をクリア
-        const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-        days.forEach(day => {
-            const dayPlanId = `${day}${mealType}`;
-            const dayPlanElement = document.getElementById(dayPlanId);
-            if (dayPlanElement) {
-                dayPlanElement.innerHTML = ''; // 既存のコンテンツをクリア
-            }
-        });
+    // function displayDummyMeals(dummyRecipes, mealType) {
+    //     // すべてのdayPlanの内容をクリア
+    //     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    //     days.forEach(day => {
+    //         const dayPlanId = `${day}${mealType}`;
+    //         const dayPlanElement = document.getElementById(dayPlanId);
+    //         if (dayPlanElement) {
+    //             dayPlanElement.innerHTML = ''; // 既存のコンテンツをクリア
+    //         }
+    //     });
 
-        // ダミーデータを表示
-        dummyRecipes.forEach((recipe, index) => {
-            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][index];
-            const mealTime = mealType;
-            const recipeElement = document.createElement('div');
-            recipeElement.innerHTML = `
-                <h3> ${recipe.title}</h3>
-                <img src="${recipe.image}" alt="${recipe.title}">
-                <p>Protein: ${recipe.protein}</p>
-                <p>Fat: ${recipe.fat}</p>
-                <p>Carbs: ${recipe.carbs}</p>
-                <p>Calories: ${recipe.calories}</p>
-            `;
+    //     // ダミーデータを表示
+    //     dummyRecipes.forEach((recipe, index) => {
+    //         const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][index];
+    //         const mealTime = mealType;
+    //         const recipeElement = document.createElement('div');
+    //         recipeElement.innerHTML = `
+    //             <h3> ${recipe.title}</h3>
+    //             <img src="${recipe.image}" alt="${recipe.title}">
+    //             <p>Protein: ${recipe.protein}</p>
+    //             <p>Fat: ${recipe.fat}</p>
+    //             <p>Carbs: ${recipe.carbs}</p>
+    //             <p>Calories: ${recipe.calories}</p>
+    //         `;
 
-            // クリックして各レシピの詳細ページを表示
-            recipeElement.addEventListener('click', () => {
-                // 別ウィンドウで表示する場合
-                window.open(`https://spoonacular.com/recipes/${recipe.title}-${recipe.id}`, '_blank');
-            });
+    //         // クリックして各レシピの詳細ページを表示
+    //         recipeElement.addEventListener('click', () => {
+    //             // 別ウィンドウで表示する場合
+    //             window.open(`https://spoonacular.com/recipes/${recipe.title}-${recipe.id}`, '_blank');
+    //         });
 
-            document.getElementById(`${days}${mealTime}`).appendChild(recipeElement);
-        });
-    }
+    //         document.getElementById(`${days}${mealTime}`).appendChild(recipeElement);
+    //     });
+    // }
     // 表示
-    displayDummyMeals(dummyRecipesBreakfast, 'Breakfast');
-    displayDummyMeals(dummyRecipesLunch, 'Lunch');
-    displayDummyMeals(dummyRecipesDinner, 'Dinner');
+    // displayDummyMeals(dummyRecipesBreakfast, 'Breakfast');
+    // displayDummyMeals(dummyRecipesLunch, 'Lunch');
+    // displayDummyMeals(dummyRecipesDinner, 'Dinner');
 
 });

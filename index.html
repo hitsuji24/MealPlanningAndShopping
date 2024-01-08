@@ -6,61 +6,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Document</title>
+    <title>1週間分の献立プランニング</title>
 </head>
 
 <body>
 
-    <header>
-        <h1>1週間分の献立プランニング</h1>
-    </header>
 
-    <div id="nutrientsInput">
-        <p><span class="highlight">1日あたり</span>の目標摂取量を教えてください</p>
-        <form id="nutrientsForm">
-            <div class="nutInputWrap">
-                <div class="nutInput" id="protein">
-                    <p>プロテイン</p>
-                    <label for="minProtein">最低値(g)</label>
-                    <input type="number" id="minProtein"><br>
-                    <label for="maxProtein	">最大値(g)</label>
-                    <input type="number" id="maxProtein">
-                </div>
-                <div class="nutInput" id="fat">
-                    <p>脂質</p>
-                    <label for="mminFat">最低値(g)</label>
-                    <input type="number" id="minFat"><br>
-                    <label for="maxFat">最大値(g)</label>
-                    <input type="number" id="maxFat">
-                </div>
-                <div class="nutInput" id="carbs">
-                    <p>炭水化物</p>
-                    <label for="minCarbs">最低値(g)</label>
-                    <input type="number" id="minCarbs"><br>
-                    <label for="maxCarbs">最大値(g)</label>
-                    <input type="number" id="maxCarbs">
-                </div>
-                <div class="nutInput" id="calories">
-                    <p>カロリー</p>
-                    <label for="minCalories">最低値(g)</label>
-                    <input type="number" id="minCalories"><br>
-                    <label for="maxCalories	">最大値(g)</label>
-                    <input type="number" id="maxCalories">
-                </div>
+    <div class="top">
+
+        <div class="character">
+            <img src="./img/chef.png" alt="キャラクター">
+        </div>
+
+        <div id="nutrientsInput">
+            <h1>1週間分の献立プランニング</h1>
+
+            <p>各栄養素の<span class="highlight">1日あたり</span>の目標摂取量を教えてください</p>
+            <!-- TODO PFCバランスを計算する機能がついていてもいいかも -->
+            <div class="nutCal">
+                <details>
+                    <summary>PFCバランスを計算する</summary>
+                    <div id="bodyInfoInput">
+                        <form action="" method="post">
+                            <div class="inputWrap">
+                                <label for="sex"> 性別　　</label>
+                                <select name="sex" id="sex">
+                                    <option value="1">女性</option>
+                                    <option value="2">男性</option>
+                                </select>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="age">年齢　　</label>
+                                <input type="number" id="age">
+                                <span class="unit">歳</span>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="height">身長　　</label>
+                                <input type="number" id="height">
+                                <span class="unit">cm</span>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="weight">体重　　</label>
+                                <input type="number" id="weight">
+                                <span class="unit">kg</span>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="activity">活動量　</label>
+                                <select name="activity" id="activity">
+                                    <option value="1">デスクワークが多く、一日の運動は駅の往復や階段の上り下り程度</option>
+                                    <option value="2">立ち仕事や重労働が多く、一日中動き回っている</option>
+                                    <option value="3">立ち仕事や重労働が多く、さらにジムなどでトレーニングを行っている</option>
+                                </select>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="goal">目的　　</label>
+                                <select name="goal" id="goal">
+                                    <option value="1">ダイエット</option>
+                                    <option value="2">維持</option>
+                                    <option value="3">増量</option>
+                                </select>
+                            </div>
+                            <input type="submit" value="計算" class="button">
+                        </form>
+                    </div>
+                    <div class="pfcResult">
+                        <p>あなたの1日あたりの目標摂取量は</p>
+                        <div class="pfcResultWrap">
+                            <div class="pfcResultItem">
+                                <p>タンパク質</p>
+                                <p>g</p>
+                            </div>
+                            <div class="pfcResultItem">
+                                <p>脂質</p>
+                                <p>g</p>
+                            </div>
+                            <div class="pfcResultItem">
+                                <p>炭水化物</p>
+                                <p>g</p>
+                            </div>
+                        </div>
+                        <!-- todo 結果反映できるようにしたい -->
+                        <!-- <input type="submit" value="結果を反映する" class="button"> -->
+                    </div>
+                </details>
             </div>
-            <button type="submit">レシピを検索</button>
-        </form>
+            <form id="nutrientsForm">
+                <div class="nutInputWrap">
+                    <div class="nutInput" id="protein">
+                        <p>タンパク質</p>
+                        <label for="minProtein">最低値(g)</label>
+                        <input type="number" id="minProtein"><br>
+                        <label for="maxProtein	">最大値(g)</label>
+                        <input type="number" id="maxProtein">
+                    </div>
+                    <div class="nutInput" id="fat">
+                        <p>脂質</p>
+                        <label for="mminFat">最低値(g)</label>
+                        <input type="number" id="minFat"><br>
+                        <label for="maxFat">最大値(g)</label>
+                        <input type="number" id="maxFat">
+                    </div>
+                    <div class="nutInput" id="carbs">
+                        <p>炭水化物</p>
+                        <label for="minCarbs">最低値(g)</label>
+                        <input type="number" id="minCarbs"><br>
+                        <label for="maxCarbs">最大値(g)</label>
+                        <input type="number" id="maxCarbs">
+                    </div>
+                    <!-- 上の3つが決まれば自ずとカロリーも決まるのだったかも -->
+                    <!-- <div class="nutInput" id="calories">
+                        <p>カロリー</p>
+                        <label for="minCalories">最低値(g)</label>
+                        <input type="number" id="minCalories"><br>
+                        <label for="maxCalories	">最大値(g)</label>
+                        <input type="number" id="maxCalories">
+                    </div> -->
+                </div>
+                <button type="submit">レシピを検索</button>
+            </form>
+        </div>
+
     </div>
+
+
 
     <!-- 備忘録：朝昼晩ラベルと曜日&献立レシピの箱を作ってFlex指定は作り方として向いていない -->
     <!-- 備忘録：横幅パーセンテージ指定のとき、marginはいい感じに計算してくれない。100%指定のときにはみ出す可能性あり -->
-
+    <!-- TODO 条件が厳しいと同じレシピが出てきてしまう。同じ日や前後の日に被らないようにルール設定したい -->
+    <!-- ? いや、条件が緩いほうが被りやすい。なんだろう -->
     <div id="mealPlanWrapper">
         <!-- ここに朝昼晩のラベル 一緒に横並びさせたほうが良さそう -->
         <!-- Display Gridというのがある マスぽくさせるにはFlexboxより使いやすい
                      横幅に対して相対指定できる
                      朝昼晩のとこだけピクセル指定して、献立部分は相対指定が良さそう -->
         <div class="mealTimeLabels">
+            <div class="dayLabel"></div> <!-- 高さを揃えるためここは空白 -->
             <div>朝</div>
             <div>昼</div>
             <div>晩</div>
