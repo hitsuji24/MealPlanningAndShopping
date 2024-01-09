@@ -79,7 +79,7 @@ document.getElementById('bodyInfoInput').addEventListener('submit', function (ev
 let recipeIds = [];
 let uniqueRecipeIds = [];
 
-const apiKey = 'XXX';
+const apiKey = 'xxx';
 
 // APIレスポンスを処理し、レシピを表示する関数
 function fetchAndDisplayMeals(apiUrl, mealType) {
