@@ -10,47 +10,49 @@ document.getElementById('bodyInfoInput').addEventListener('submit', function (ev
     const activityLevel = document.getElementById('activity').value;
     const goal = document.getElementById('goal').value;
 
-    // BMRの計算
+    // BMR（基礎代謝）の計算.ハリスベネディクトの式を使用
     let bmr;
     if (sex === "1") { // 女性の場合
-        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+        bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+        // bmr = 10 * weight + 6.25 * height - 5 * age - 161;
     } else { // 男性の場合
-        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+        bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+        // 10 * weight + 6.25 * height - 5 * age + 5;
     }
+    console.log(bmr);
 
     // 活動レベルに基づいた総エネルギー必要量の計算
     let totalCalories;
     switch (activityLevel) {
         case "1":
-            totalCalories = bmr * 1.2;
-            break;
-        case "2":
             totalCalories = bmr * 1.5;
             break;
-        case "3":
+        case "2":
             totalCalories = bmr * 1.75;
             break;
-        default:
-            totalCalories = bmr;
+        case "3":
+            totalCalories = bmr * 2.00;
+            break;
     }
+    console.log(totalCalories);
 
-    // 目的に応じてPFCバランスを計算（例として固定割合を使用）
+    // 目的に応じてPFCバランスを計算
     let proteinGrams, fatGrams, carbGrams;
     switch (goal) {
         case "1": // ダイエットの場合
-            proteinGrams = totalCalories * 0.40 / 4;
-            fatGrams = totalCalories * 0.30 / 9;
-            carbGrams = totalCalories * 0.30 / 4;
+            proteinGrams = totalCalories * 0.30 / 4;
+            fatGrams = totalCalories * 0.20 / 9;
+            carbGrams = totalCalories * 0.50 / 4;
             break;
         case "2": // 維持の場合
-            proteinGrams = totalCalories * 0.30 / 4;
-            fatGrams = totalCalories * 0.35 / 9;
-            carbGrams = totalCalories * 0.35 / 4;
+            proteinGrams = totalCalories * 0.2 / 4;
+            fatGrams = totalCalories * 0.3 / 9;
+            carbGrams = totalCalories * 0.5 / 4;
             break;
         case "3": // 増量の場合
-            proteinGrams = totalCalories * 0.25 / 4;
-            fatGrams = totalCalories * 0.20 / 9;
-            carbGrams = totalCalories * 0.55 / 4;
+            proteinGrams = totalCalories * 0.3 / 4;
+            fatGrams = totalCalories * 0.2 / 9;
+            carbGrams = totalCalories * 0.5 / 4;
             break;
     }
 
@@ -68,7 +70,7 @@ document.getElementById('bodyInfoInput').addEventListener('submit', function (ev
                 <span>${fatGrams.toFixed(1)} g</span>
             </div>
             <div class="pfcResultItem">
-                <span>炭水化物</sp>
+                <span>炭水化物</span>
                 <span>${carbGrams.toFixed(1)} g</span>
             </div>
         </div>
